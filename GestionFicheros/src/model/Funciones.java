@@ -19,6 +19,11 @@ import java.util.Scanner;
  */
 public class Funciones {
 
+    /**
+     * creates a folder in the users path
+     *
+     * @param folderName name of the folder
+     */
     public static void createFolder(String folderName) {
         String path = System.getProperty("user.dir");
         String separador = File.separator;
@@ -30,12 +35,19 @@ public class Funciones {
 
     }
 
+    /**
+     *
+     * creates file on a path, if the folder doesn't exist it creates one
+     *
+     * @param path the path where the file is created
+     * @param fileName the name of the file
+     * @param content the content of the file
+     * @throws IOException
+     *
+     */
     public static void createFile(String path, String fileName, String content) throws IOException {
-
         String separador = File.separator;
-
         File carpeta = new File(path);
-
         if (!carpeta.exists()) {
             carpeta.mkdir();
         }
@@ -51,6 +63,12 @@ public class Funciones {
 
     }
 
+    /**
+     * show list of files in the written path
+     *
+     * @param path
+     * @return String[] list of files
+     */
     public static String[] showListFiles(String path) {
         File carpeta = new File(path);
         String[] list = carpeta.list();
@@ -59,6 +77,14 @@ public class Funciones {
 
     }
 
+    /**
+     * show content of file
+     *
+     * @param path
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
     public static String showFile(String path, String fileName) throws FileNotFoundException {
         String separador = File.separator;
 
@@ -69,6 +95,15 @@ public class Funciones {
         return contenido;
     }
 
+    /**
+     * add content to a file
+     *
+     * @param path
+     * @param fileName
+     * @param newContent
+     * @return boolean, false -> folder doesn't exist
+     * @throws IOException
+     */
     public static boolean overWriteFile(String path, String fileName, String newContent) throws IOException {
         String separador = File.separator;
 
@@ -90,6 +125,13 @@ public class Funciones {
         return true;
     }
 
+    /**
+     * delete selected file
+     *
+     * @param path
+     * @param fileName
+     * @throws FileNotFoundException
+     */
     public static void deleteFile(String path, String fileName) throws FileNotFoundException {
         String separador = File.separator;
         File fichero = new File(path + separador + fileName);
@@ -97,6 +139,15 @@ public class Funciones {
 
     }
 
+    /**
+     * to count the number of characters of a file
+     *
+     * @param path
+     * @param fileName
+     * @return int - num of chars
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static int countChars(String path, String fileName) throws FileNotFoundException, IOException {
         FileReader fr = null;
         String separador = File.separator;
@@ -106,14 +157,22 @@ public class Funciones {
         int caract = fr.read();
         int numChars = 0;
         while (caract != -1) {
-            numChars ++;
+            numChars++;
             caract = fr.read();
         }
 
         return numChars;
     }
 
-    public static int countWords(String path, String fileName) throws FileNotFoundException  {
+    /**
+     * to count the number of words of a file
+     *
+     * @param path
+     * @param fileName
+     * @return int - num of words
+     * @throws FileNotFoundException
+     */
+    public static int countWords(String path, String fileName) throws FileNotFoundException {
         String separador = File.separator;
         File fichero = new File(path + separador + fileName);
 
@@ -122,38 +181,37 @@ public class Funciones {
         int numWords = 0;
         while (scan.hasNext()) {
             scan.next();
-            numWords ++;
+            numWords++;
         }
 
         return numWords;
     }
 
+    /**
+     * reads all the content of the file and then replaces the old word for the
+     * new one using java method .replace()
+     *
+     * @param path
+     * @param fileName
+     * @param oldWord
+     * @param newWord
+     * @return String - new file content
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static String swapWords(String path, String fileName, String oldWord, String newWord) throws FileNotFoundException, IOException {
         String separador = File.separator;
+
         File fichero = new File(path + separador + fileName);
-
         Scanner scan = new Scanner(fichero);
-        
+        scan.useDelimiter("\\Z");
+        String contenido = scan.next();
+        contenido = contenido.replace(oldWord, newWord);
         FileWriter fw = new FileWriter(fichero, false);
-
         BufferedWriter bw = new BufferedWriter(fw);
-        
-        scan.useDelimiter("\\s+");
-        int numWords = 0;
-        while (scan.hasNext()) {
-            System.out.println("hemos entrado en el bucle");
-            String palabra = scan.next(); // Captura la palabra
-            if (palabra.equals(oldWord)) {
-                System.out.println("hemos encontrado una coincidencia");
-                palabra = palabra.replace(oldWord, newWord);
-            }
-             bw.write(palabra + " ");
-
-            
-        }
-                     bw.flush();
+        bw.write(contenido);
         bw.close();
-        return null;
+        return contenido;
 
     }
 }

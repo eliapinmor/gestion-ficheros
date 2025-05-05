@@ -198,6 +198,7 @@ public class Main {
             System.out.println("introduce la nueva palabra: ");
             String newWord = scan.next();
             String resultado = Funciones.swapWords(path, fileName, oldWord, newWord);
+            System.out.println("Fichero modificado correctamente");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
