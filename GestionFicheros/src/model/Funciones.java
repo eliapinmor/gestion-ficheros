@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -85,7 +86,7 @@ public class Funciones {
      * @return
      * @throws FileNotFoundException
      */
-    public static String showFile(String path, String fileName) throws FileNotFoundException {
+    public static String showFile(String path, String fileName) throws FileNotFoundException,  NoSuchElementException{
         String separador = File.separator;
 
         File fichero = new File(path + separador + fileName);

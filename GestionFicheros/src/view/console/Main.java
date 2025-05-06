@@ -7,6 +7,7 @@ package view.console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,7 +95,7 @@ public class Main {
             Funciones.createFile(path, fileName, content);
             System.out.println("carpeta creada correctamente");
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
@@ -116,6 +117,8 @@ public class Main {
             System.out.println(contenido);
         } catch (FileNotFoundException ex) {
             System.out.println("Error: " + ex.getMessage());
+        } catch (NoSuchElementException ex) {
+            System.out.println("Parece ser que el archivo esta vacío");
         }
 
     }
@@ -169,7 +172,7 @@ public class Main {
             int resultado = Funciones.countChars(path, fileName);
             System.out.println("El numero de caracteres es: " + resultado);
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: " + ex.getMessage());
         }
 
     }
@@ -183,7 +186,7 @@ public class Main {
             int resultado = Funciones.countWords(path, fileName);
             System.out.println("El numero de palabras es: " + resultado);
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
@@ -200,9 +203,9 @@ public class Main {
             String resultado = Funciones.swapWords(path, fileName, oldWord, newWord);
             System.out.println("Fichero modificado correctamente");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: " + ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: " + ex.getMessage());
         }
         
     }
